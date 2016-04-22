@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<body>
+<form>
+
+  <h1>Please enter data</h1>
+  <input id="Number" type="text" />
+  <input type="button" value="Save" onclick="insert(Number)" />
+  <input type="button" value="Show" onclick="show()" />
+  <input type="button" value="Sort" onclick="quick()" />
+</form>
+<div id="display"></div>
+<script>
+
+var list=new Array();
+
+function insert( Number ) {
+  	list.push( parseInt(Number.value) );
+  	console.log( list.join(" , ") );
+}
+
+function show() {
+  	var string="<b>All Elements of the Array :</b><br>";
+  	for(i = 0; i < list.length; i++) {
+  		string =string+list[i]+"<br>";
+  	}
+  	if(list.length > 0)
+ 		document.getElementById('display').innerHTML = string;
+}
+function partition(low,high)
+{
+	var pvt=list[high];
+	var i=low-1,tmp;
+	for(var j=low;j<high;j++)
+	{
+		if(list[j]<=pvt)
+		{
+			i=i+1;
+			tmp=list[j];
+			list[j]=list[i];
+			list[i]=tmp;
+		}
+	}
+	tmp=list[high];
+	list[high]=list[i+1];
+	list[i+1]=tmp;
+	return i+1;
+}
+
+function quickSort(low,high){
+	if(low<high)
+	{
+		
+		var partn=partition(low,high);
+		quickSort(low,partn-1);
+		quickSort(partn+1,high);
+	}
+}
+  
+function quick() {
+	var n = list.length;
+	quickSort(0,n-1);
+	var string="<b>All Elements of the Array :</b><br>";
+  	for(i = 0; i < list.length; i++) {
+  	string =string+list[i]+"<br>";
+  	}
+  	if(list.length > 0)
+ 		document.getElementById('display').innerHTML = string;
+}
+
+
+</script>
+</body>
+</html>
